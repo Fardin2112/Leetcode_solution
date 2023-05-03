@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int real = x;
+        double rem =0;
+
+        while(real>0){
+           int quot = real%10;
+           rem = 10*rem + quot;
+           real = real /10 ;
+
+        }
+        return rem == x;
+    }
+};
