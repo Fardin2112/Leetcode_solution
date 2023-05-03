@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+          int n = words.size();
+        vector<int> prefix_sum(n, 0);
+        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+        
+        for (int i = 0; i < n; i++) {
+            if (vowels.count(words[i][0]) && vowels.count(words[i][words[i].length() - 1]))
+                prefix_sum[i] = 1;
+            if (i > 0)
+                prefix_sum[i] += prefix_sum[i - 1];
+        }
+        
+        vector<int> res;
+        
+        for (auto query : queries) {
+            int l = query[0], r = query[1];
+            if (l > 0)
+                res.push_back(prefix_sum[r] - prefix_sum[l - 1]);
+            else
+                res.push_back(prefix_sum[r]);
+        }
+        return res;
+    }
+};
